@@ -2,7 +2,9 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { TaksCreator } from "./components/TaksCreator";
 import { TaksTable } from "./components/TaksTable";
+import { CleanTaks } from "./components/CleanTaks";
 function App() {
+  const [showCompeted, SetshowCompeted] = useState(false);
   const [TaksItem, SetTaksItem] = useState([]);
   function createNewTaks(newTaks) {
     if (!TaksItem.find((task) => task.name === newTaks)) {
@@ -13,7 +15,7 @@ function App() {
   }
   const toggleTask = (Taks) => {
     SetTaksItem(
-      TaksItem.map((t) => (t.name == Taks.name ? { ...t, done: !t.done } : t))
+      TaksItem.map((t) => (t.name === Taks.name ? { ...t, done: !t.done } : t))
     );
   };
   useEffect(() => {
@@ -26,11 +28,28 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(TaksItem));
   }, [TaksItem]);
 
+  const CleanTasks = () => {
+     //Eliminando las Tareas 🤮
+    SetTaksItem(TaksItem.filter(taks => !taks.done ))
+    SetshowCompeted(false)
+    }
+
   return (
     <div className="App">
       <TaksCreator createNewTaks={createNewTaks} />
       <TaksTable Tasks={TaksItem} toggleTask={toggleTask} />
-      <TaksTable Tasks={TaksItem} toggleTask={toggleTask} showCompeted={true}/>
+      <CleanTaks  
+      isChecked={showCompeted}
+      SetshowCompeted={(checked) => SetshowCompeted(checked)}
+      CleanTasks={CleanTasks}
+      />
+      {showCompeted === true && (
+        <TaksTable
+          Tasks={TaksItem}
+          toggleTask={toggleTask}
+          showCompeted={true}
+        />
+      )}
     </div>
   );
 }
