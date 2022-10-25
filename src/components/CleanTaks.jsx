@@ -5,12 +5,14 @@ export const CleanTaks = ({SetshowCompeted, CleanTasks, isChecked}) => {
       }
     }
   return (
-    <div>
+    <div className="clean">
+      <div>
       <input 
       checked={isChecked}
       type="checkbox" 
       onChange={(e) => SetshowCompeted(e.target.checked)} />
-      <label>Mostrar tareas completadas</label>
+      <label>Show completed tasks</label>
+      </div>
       <button onClick={handleDelete}>Clear</button>
     </div>
   );

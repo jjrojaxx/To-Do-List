@@ -15,7 +15,6 @@ export const TaksCreator = (props) => {
         placeholder="Enter new taks"
         onChange={(e) => setNewTaks(e.target.value)}
       />
-      <button>Saves taks</button>
     </form>
   );
 };

@@ -29,27 +29,30 @@ function App() {
   }, [TaksItem]);
 
   const CleanTasks = () => {
-     //Eliminando las Tareas 🤮
-    SetTaksItem(TaksItem.filter(taks => !taks.done ))
-    SetshowCompeted(false)
-    }
+    //Eliminando las Tareas 🤮
+    SetTaksItem(TaksItem.filter((taks) => !taks.done));
+    SetshowCompeted(false);
+  };
 
   return (
     <div className="App">
-      <TaksCreator createNewTaks={createNewTaks} />
-      <TaksTable Tasks={TaksItem} toggleTask={toggleTask} />
-      <CleanTaks  
-      isChecked={showCompeted}
-      SetshowCompeted={(checked) => SetshowCompeted(checked)}
-      CleanTasks={CleanTasks}
-      />
-      {showCompeted === true && (
-        <TaksTable
-          Tasks={TaksItem}
-          toggleTask={toggleTask}
-          showCompeted={true}
+      <div className="contenedor">
+        <h1>📚Things to do📚</h1>
+        <TaksCreator createNewTaks={createNewTaks} />
+        <TaksTable Tasks={TaksItem} toggleTask={toggleTask} />
+        <CleanTaks
+          isChecked={showCompeted}
+          SetshowCompeted={(checked) => SetshowCompeted(checked)}
+          CleanTasks={CleanTasks}
         />
-      )}
+        {showCompeted === true && (
+          <TaksTable
+            Tasks={TaksItem}
+            toggleTask={toggleTask}
+            showCompeted={true}
+          />
+        )}
+      </div>
     </div>
   );
 }
